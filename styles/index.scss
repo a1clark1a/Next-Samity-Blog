@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  font-family: Nunito, sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-size: 14px;
   font-weight: 300;
@@ -147,6 +147,11 @@ body {
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: bold;
+
+      a {
+        color: black;
+        font-weight: bold;
+      }
     }
 
     &-item {

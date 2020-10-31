@@ -1,4 +1,5 @@
 import { Row, Col } from "react-bootstrap"
+
 import PageLayout from "components/PageLayout"
 import AuthorIntro from "components/AuthorIntro"
 import CardListItem from "components/CardListItem"
@@ -11,10 +12,16 @@ export default function Home({ blogs }) {
     return (
       <Col md="4" key={blog.title}>
         <CardItem
+          author={blog.author || {}}
           title={blog.title}
           subtitle={blog.subtitle}
           date={blog.date}
           image={blog.coverImage}
+          slug={blog.slug}
+          link={{
+            href: "/blogs/[slug]",
+            as: `/blogs/${blog.slug}`,
+          }}
         />
       </Col>
     )

@@ -48,6 +48,7 @@ export default createSchema({
           type: "reference",
           title: "Author",
           to: [{ type: "author" }],
+          validation: (Rule) => Rule.required().min(5),
         },
         {
           name: "coverImage",
@@ -58,11 +59,15 @@ export default createSchema({
           name: "date",
           title: "Date",
           type: "datetime",
+          validation: (Rule) => Rule.required().error("Add date published"),
         },
         {
           name: "slug",
           type: "slug",
           title: "Slug",
+          validation: (Rule) => {
+            return Rule.required()
+          },
         },
       ],
     },
