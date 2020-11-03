@@ -1,4 +1,5 @@
 import "styles/globals.css"
+import "highlight.js/styles/dracula.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "styles/index.scss"
 

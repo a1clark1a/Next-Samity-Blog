@@ -16,7 +16,7 @@ export default function BlogHeader({
           alt="avatar"
         />
         {author?.name || "Author Name"}
-        {", "} {Date(date) || "Blog Date"}
+        {", "} {date || "Blog Date"}
       </p>
       <h1 className="font-weight-bold blog-detail-header-title mb-0">
         {title || "Blog Title"}

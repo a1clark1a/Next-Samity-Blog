@@ -48,12 +48,68 @@ export default createSchema({
           type: "reference",
           title: "Author",
           to: [{ type: "author" }],
-          validation: (Rule) => Rule.required().min(5),
+          validation: (Rule) => Rule.required(),
         },
         {
           name: "coverImage",
           title: "Cover Image",
           type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              type: "text",
+              name: "alt",
+              title: "Description",
+            },
+          ],
+        },
+        {
+          name: "content",
+          title: "Content",
+          type: "array",
+          of: [
+            {
+              type: "block",
+            },
+            {
+              type: "image",
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                {
+                  name: "position",
+                  title: "Position",
+                  type: "string",
+                  options: {
+                    list: [
+                      { title: "Center", value: "center" },
+                      { title: "Left", value: "left" },
+                      { title: "Right", value: "right" },
+                    ],
+                    layout: "radio",
+                    isHighlighted: true,
+                  },
+                },
+                {
+                  type: "text",
+                  name: "alt",
+                  title: "Description",
+                  options: {
+                    isHighlighted: true,
+                  },
+                },
+              ],
+            },
+            {
+              type: "code",
+              options: {
+                withFilename: true,
+              },
+            },
+          ],
         },
         {
           name: "date",
