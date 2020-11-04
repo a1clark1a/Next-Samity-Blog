@@ -1,16 +1,41 @@
+import { useState } from "react"
 import { Row, Col } from "react-bootstrap"
+import useSWR from "swr"
 
 import PageLayout from "components/PageLayout"
 import AuthorIntro from "components/AuthorIntro"
 import CardListItem from "components/CardListItem"
 import CardItem from "components/CardItem"
+import FilteringMenu from "components/FilteringMenu"
 
 import { getAllBlogs } from "lib/api"
 
+const fetcher = (url) => fetch(url).then((res) => res.json)
+
 export default function Home({ blogs }) {
+  const [filter, setFilter] = useState({
+    view: { list: 0 },
+  })
+
+  const { data, error } = useSWR("/api/hello", fetcher)
+
   const displayBlogs = blogs.map((blog) => {
-    return (
-      <Col md="4" key={blog.title}>
+    return filter.view.list ? (
+      <Col md="9" key={blog.title + "-card"}>
+        <CardListItem
+          author={blog.author || {}}
+          title={blog.title}
+          subtitle={blog.subtitle}
+          date={blog.date}
+          slug={blog.slug}
+          link={{
+            href: "/blogs/[slug]",
+            as: `/blogs/${blog.slug}`,
+          }}
+        />
+      </Col>
+    ) : (
+      <Col md="4" key={blog.title + "-card"}>
         <CardItem
           author={blog.author || {}}
           title={blog.title}
@@ -27,17 +52,15 @@ export default function Home({ blogs }) {
     )
   })
 
+  const handleFilter = (option, value) =>
+    setFilter({ ...filter, [option]: value })
+
   return (
     <PageLayout>
       <AuthorIntro />
+      <FilteringMenu filter={filter} onChange={handleFilter} />
       <hr />
-      <Row className="mb-5">
-        {/* <Col md="10">
-          <CardListItem />
-        </Col> */}
-
-        {displayBlogs}
-      </Row>
+      <Row className="mb-5">{displayBlogs}</Row>
     </PageLayout>
   )
 }
