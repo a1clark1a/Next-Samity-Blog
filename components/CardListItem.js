@@ -7,10 +7,11 @@ const CardListItem = ({
   title,
   subtitle,
   date,
-  author: { avatar, name },
+  author: { avatar, name } = {},
+  mode = "normal",
 }) => {
   return (
-    <Card className={`fj-card fj-card-list`}>
+    <Card className={`fj-card fj-card-list ${mode}`}>
       <div className="card-body-wrapper">
         <Card.Header className="d-flex flex-row">
           <img
@@ -21,19 +22,41 @@ const CardListItem = ({
             alt="avatar"
           />
           <div>
-            <Card.Title className="font-weight-bold mb-1">
-              {name || "Placeholder Author"}
-            </Card.Title>
-            <Card.Text className="card-date">
-              {date || "Placeholder Date"}
-            </Card.Text>
+            {mode === "placeholder" ? (
+              <>
+                <Card.Title className="font-weight-bold mb-1">
+                  Placeholder Author
+                </Card.Title>
+                <Card.Text className="card-date">Placeholder Date</Card.Text>
+              </>
+            ) : (
+              <>
+                <Card.Title className="font-weight-bold mb-1">
+                  {name || "Placeholder Author"}
+                </Card.Title>
+                <Card.Text className="card-date">
+                  {date || "Placeholder Date"}
+                </Card.Text>
+              </>
+            )}
           </div>
         </Card.Header>
         <Card.Body>
-          <Card.Title className="card-main-title">
-            {title || "Placeholder Title"}
-          </Card.Title>
-          <Card.Text>{subtitle || "Placehodler Subtitle"}</Card.Text>
+          {mode === "placeholder" ? (
+            <>
+              <Card.Title className="card-main-title">
+                Placeholder Title
+              </Card.Title>
+              <Card.Text>Placehodler Subtitle</Card.Text>
+            </>
+          ) : (
+            <>
+              <Card.Title className="card-main-title">
+                {title || "Placeholder Title"}
+              </Card.Title>
+              <Card.Text>{subtitle || "Placehodler Subtitle"}</Card.Text>
+            </>
+          )}
         </Card.Body>
       </div>
       {link && (

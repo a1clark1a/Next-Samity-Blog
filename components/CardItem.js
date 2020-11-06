@@ -8,11 +8,12 @@ const CardItem = ({
   subtitle,
   image,
   date,
-  author: { avatar, name },
+  author: { avatar, name } = {},
+  mode = "normal",
 }) => {
   return (
-    <Card className={`fj-card`}>
-      <div className="card-body-wrapper">
+    <Card className={`fj-card ${mode}`}>
+      <div className={`card-body-wrapper ${!image ? "no-image" : ""}`}>
         <Card.Header className="d-flex flex-row">
           <img
             src={urlFor(avatar).url() || "https://via.placeholder.com/150"}
@@ -22,26 +23,49 @@ const CardItem = ({
             alt="avatar"
           />
           <div>
-            <Card.Title className="font-weight-bold mb-1">
-              {name || "Placeholder Author"}
-            </Card.Title>
-            <Card.Text className="card-date">{date}</Card.Text>
+            {mode === "placeholder" ? (
+              <>
+                <Card.Title className="font-weight-bold mb-1">
+                  Placeholder Author
+                </Card.Title>
+                <Card.Text className="card-date">'date'</Card.Text>
+              </>
+            ) : (
+              <>
+                <Card.Title className="font-weight-bold mb-1">
+                  {name || "Placeholder Author"}
+                </Card.Title>
+                <Card.Text className="card-date">{date}</Card.Text>
+              </>
+            )}
           </div>
         </Card.Header>
         <div className="view overlay">
-          <Card.Img
-            src={
-              urlFor(image).crop("center").fit("clip").height(300).url() ||
-              "https://via.placeholder.com/150"
-            }
-            alt="Card image cap"
-          />
+          {mode === "placeholder" ? (
+            <div className="image-placeholder" />
+          ) : (
+            image && (
+              <Card.Img
+                src={urlFor(image).crop("center").fit("clip").height(300).url()}
+                alt="Card image cap"
+              />
+            )
+          )}
         </div>
         <Card.Body>
-          <Card.Title className="card-main-title">
-            {title || "Title"}
-          </Card.Title>
-          <Card.Text>{subtitle || "subtitle"}</Card.Text>
+          {mode === "placeholder" ? (
+            <>
+              <Card.Title className="card-main-title">Title</Card.Title>
+              <Card.Text>subtitle"</Card.Text>
+            </>
+          ) : (
+            <>
+              <Card.Title className="card-main-title">
+                {title || "Title"}
+              </Card.Title>
+              <Card.Text>{subtitle || "subtitle"}</Card.Text>
+            </>
+          )}
         </Card.Body>
       </div>
       {/* `Linking to a different route refreshes the page
