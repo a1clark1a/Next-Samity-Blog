@@ -32,5 +32,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# build
+public
+/public
+
 # vercel
 .vercel
