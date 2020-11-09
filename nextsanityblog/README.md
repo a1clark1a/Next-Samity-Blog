@@ -1,4 +1,19 @@
-# Sanity Clean Content Studio
+# Sanity Admin
+
+- Admin dashboard for managing your blog content
+
+1. Run `sanity install`
+
+2. Create `.env.development` file in root folder of `nextsanityblog` folder with values of
+
+```javascript
+SANITY_STUDIO_PROJECT_URL = "use local or production url"
+SANITY_STUDIO_PREVIEW_SECRET = "your own created preview secret with sanity"
+```
+
+3. Run `npm start` or `sanity start`
+
+## Sanity Clean Content Studio
 
 Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
 
