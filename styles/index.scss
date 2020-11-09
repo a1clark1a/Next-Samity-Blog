@@ -243,11 +243,13 @@ body {
 
   &-left {
     float: left;
+    max-width: 50%;
     margin-right: 30px;
   }
 
   &-right {
     float: right;
+    max-width: 50%;
     margin-left: 30px;
   }
 }
